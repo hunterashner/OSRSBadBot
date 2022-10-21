@@ -14,6 +14,7 @@ namespace OSRSBadBot
             {
                 window.SetWindowToWindowDimensions();
                 Console.WriteLine("Bot initializing... happy botting!");
+                window.ResizeWindowDimensions(new Rectangle(10, 10, 1280, 720));
                 Bitmap test = window.GetMostRecentScreenshot();
                 window.TestBitmapOutputToFile(test);
                 //while (true)

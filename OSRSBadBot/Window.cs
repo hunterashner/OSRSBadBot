@@ -50,5 +50,10 @@ namespace OSRSBadBot
         {
             bmp.Save("c:\\Users\\hunte\\Pictures\\testing.bmp");
         }
+
+        public void ResizeWindowDimensions(Rectangle rectangle)
+        {
+            WindowHelpers.GetHandleMoveWindow(Ptr, rectangle);
+        }
     }
 }
