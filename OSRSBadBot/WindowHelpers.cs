@@ -19,6 +19,9 @@ namespace OSRSBadBot
         [DllImport("user32.dll")]
         public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
 
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
+
         public static IntPtr GetHandleWindow(string title)
         {
             return FindWindow(null, title);
@@ -32,20 +35,25 @@ namespace OSRSBadBot
             return rect;
         }
 
-        public static Bitmap GetHandlePrintWindow(IntPtr hWnd)
+        public static Bitmap GetHandlePrintWindow(IntPtr hWnd, Rectangle rect)
         {
-            Rectangle rect = new Rectangle();
             GetHandleWindowRect(hWnd, rect);
-
             Bitmap bmp = new Bitmap(rect.Width, rect.Height, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
             Graphics gfx = Graphics.FromImage(bmp);
             IntPtr hdcBitmap = gfx.GetHdc();
 
-            PrintWindow(hWnd, hdcBitmap, 0);
+            //3rd parameter nFlags (only worked with 2 - not sure why... )
+            PrintWindow(hWnd, hdcBitmap, 2);
             gfx.ReleaseHdc(hdcBitmap);
             gfx.Dispose();
 
             return bmp;
+        }
+
+        //repaint window at pointer to rectangle parameter
+        public static void GetHandleMoveWindow(IntPtr window, Rectangle dimensions)
+        {
+            MoveWindow(window, dimensions.X, dimensions.Y, dimensions.Width, dimensions.Height, true);
         }
     }
 }

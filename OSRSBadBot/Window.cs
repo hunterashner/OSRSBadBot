@@ -43,7 +43,12 @@ namespace OSRSBadBot
 
         public Bitmap GetMostRecentScreenshot()
         {
-            return WindowHelpers.GetHandlePrintWindow(Ptr);
+            return WindowHelpers.GetHandlePrintWindow(Ptr, Proportions);
+        }
+
+        public void TestBitmapOutputToFile(Bitmap bmp)
+        {
+            bmp.Save("c:\\Users\\hunte\\Pictures\\testing.bmp");
         }
     }
 }
