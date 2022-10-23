@@ -10,13 +10,18 @@ namespace OSRSBadBot
         public static void Main()
         {
             Window window = new Window("Old School RuneScape");
+            ImageDetectionManager imageDetectionManager = new ImageDetectionManager();
             if (window.CheckForWindowOpen())
             {
                 window.SetWindowToWindowDimensions();
                 Console.WriteLine("Bot initializing... happy botting!");
-                window.ResizeWindowDimensions(new Rectangle(10, 10, 1280, 720));
+                Rectangle resizeTo = new Rectangle(10, 10, 1280, 720);
+                window.ResizeWindowDimensions(resizeTo);
                 Bitmap test = window.GetMostRecentScreenshot();
                 window.TestBitmapOutputToFile(test);
+
+                //console logs any text detected in bitmap
+                imageDetectionManager.ScanBitmapForText("c:\\Users\\hunter\\Pictures\\tesseract.png");
                 //while (true)
                 //{
 

@@ -48,7 +48,7 @@ namespace OSRSBadBot
 
         public void TestBitmapOutputToFile(Bitmap bmp)
         {
-            bmp.Save("c:\\Users\\hunte\\Pictures\\testing.bmp");
+            bmp.Save("c:\\Users\\hunter\\Pictures\\testing.bmp");
         }
 
         public void ResizeWindowDimensions(Rectangle rectangle)
