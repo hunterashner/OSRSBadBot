@@ -20,34 +20,59 @@ namespace OSRSBadBot
             _savedBitmap = null;
         }
 
-        public void ScanBitmapForText(Bitmap bmp, Rectangle contentArea)
+        // --- refactored for Bmp parameter only --- //
+
+        //public void ScanBitmapForText(Bitmap bmp, Rectangle contentArea)
+        //{
+        //    _currentBitmap = bmp;
+        //    var OCR = new IronTesseract();
+
+        //    using (var Input = new OcrInput())
+        //    {
+        //        Input.Add(bmp);
+        //        var Result = OCR.Read(Input);
+        //        Console.WriteLine(Result.ToString());
+        //    }
+        //}
+
+        //public void ScanBitmapForText(String path)
+        //{
+        //    var OCR = new IronTesseract();
+
+        //    using (var Input = new OcrInput())
+        //    {
+        //        Input.Add(path);
+        //        var Result = OCR.Read(Input);
+        //        Console.WriteLine(Result.Text);
+        //    }
+        //}
+
+        //checks if any text is present in the bitmap
+        public bool ScanBitmapForText(Bitmap bmp)
         {
-            _currentBitmap = bmp;
             var OCR = new IronTesseract();
 
             using (var Input = new OcrInput())
             {
                 Input.Add(bmp);
                 var Result = OCR.Read(Input);
-                Console.WriteLine(Result.ToString());
+                Console.WriteLine($"Character Recognition Found {Result.Text}");
+                if(Result.Text.Length >= 2)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
-        public void OneLiner(string path)
+        private string GetTextResult(string text)
         {
-            string text = new IronTesseract().Read(path);
+            return text;
         }
-        public void ScanBitmapForText(String path)
-        {
-            var OCR = new IronTesseract();
 
-            using (var Input = new OcrInput())
-            {
-                Input.Add(path);
-                var Result = OCR.Read(Input);
-                Console.WriteLine(Result.ToString());
-            }
-        }
 
         public bool ScanBitmapForItem(Bitmap item, Bitmap bmp)
         {

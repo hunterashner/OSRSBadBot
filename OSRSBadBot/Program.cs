@@ -10,22 +10,24 @@ namespace OSRSBadBot
         public static void Main()
         {
             Window window = new Window("Old School RuneScape");
-            ImageDetectionManager imageDetectionManager = new ImageDetectionManager();
+            Player player = new Player();
+
             if (window.CheckForWindowOpen())
             {
                 window.SetWindowToWindowDimensions();
                 Console.WriteLine("Bot initializing... happy botting!");
                 Rectangle resizeTo = new Rectangle(10, 10, 1280, 720);
                 window.ResizeWindowDimensions(resizeTo);
-                Bitmap test = window.GetMostRecentScreenshot();
-                window.TestBitmapOutputToFile(test);
 
-                //console logs any text detected in bitmap
-                imageDetectionManager.ScanBitmapForText("c:\\Users\\hunter\\Pictures\\tesseract.png");
-                //while (true)
-                //{
+                System.Threading.Thread.Sleep(1000);
+                Bitmap screenshot = window.GetMostRecentScreenshot();
 
-                //    //Update();
+                // logic for selecting current script // await user input for selected script
+
+                //if combat script selected look to do this on steady interval
+                player.CombatCheck(screenshot);
+
+                player.AttackTargetEnemy(screenshot, null);
 
                 //    /*notes for future development
                 //    --- every frame/iteration ---
@@ -34,20 +36,7 @@ namespace OSRSBadBot
                 //    3. analyze updated screenshot based on bot functionality
                 //    4. apply logic based on state
                 //    5. input user response
-                //    */
-
-                //}
             }
-        }
-
-        private static void Update()
-        {
-            Console.WriteLine("do this every frame");
-        }
-
-        private static void OnExit()
-        {
-            Console.WriteLine("Closing Bad Bot");
         }
     }
 }

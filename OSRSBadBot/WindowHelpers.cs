@@ -16,11 +16,29 @@ namespace OSRSBadBot
         [DllImport("user32.dll")]
         public static extern long GetWindowRect(IntPtr hWnd, ref Rectangle lpRect);
 
+        //not working correctly on W11, will try to add functionality through directX
         [DllImport("user32.dll")]
         public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
 
         [DllImport("user32.dll", SetLastError = true)]
         public static extern bool MoveWindow(IntPtr hWnd, int x, int y, int nWidth, int nHeight, bool bRepaint);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint cButtons, UIntPtr dwExtraInfo);
+        private const uint MOUSEEVENTF_LEFTDOWN = 0x02;
+        private const uint MOUSEEVENTF_LEFTUP = 0x04;
+        private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
+        private const uint MOUSEEVENTF_RIGHTUP = 0x10;
+
+        void SendMouseDown()
+        {
+            mouse_event(MOUSEEVENTF_LEFTDOWN, 50, 50, 0, UIntPtr.Zero);
+        }
+
+        void SendMouseUp()
+        {
+            mouse_event(MOUSEEVENTF_LEFTUP, 50, 50, 0, UIntPtr.Zero);
+        }
 
         public static IntPtr GetHandleWindow(string title)
         {
