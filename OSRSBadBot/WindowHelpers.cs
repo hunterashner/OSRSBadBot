@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,14 +31,22 @@ namespace OSRSBadBot
         private const uint MOUSEEVENTF_RIGHTDOWN = 0x08;
         private const uint MOUSEEVENTF_RIGHTUP = 0x10;
 
-        void SendMouseDown()
+        [DllImport("user32.dll")]
+        public static extern bool SetCursorPos(int X, int Y);
+
+        public static void SendLeftclickDown()
         {
             mouse_event(MOUSEEVENTF_LEFTDOWN, 50, 50, 0, UIntPtr.Zero);
         }
 
-        void SendMouseUp()
+        public static void SendLeftclickUp()
         {
             mouse_event(MOUSEEVENTF_LEFTUP, 50, 50, 0, UIntPtr.Zero);
+        }
+
+        public static void SendCursorToPosition(Vector2 position)
+        {
+            SetCursorPos((int)position.X, (int)position.Y);       
         }
 
         public static IntPtr GetHandleWindow(string title)

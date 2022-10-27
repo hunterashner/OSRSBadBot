@@ -9,8 +9,10 @@ namespace OSRSBadBot
 {
     internal class Chicken : Enemy
     {
-        public Color MainColor { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        //rgb(147, 39, 22) red on head
+        //rgb(152, 137, 110) average color
+        public Color MainColor { get; set; }
+        public string Name { get; set; }
 
         public Chicken(Color mainColor, string name)
         {

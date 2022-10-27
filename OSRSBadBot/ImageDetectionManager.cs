@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Numerics;
 using IronOcr;
+
 
 namespace OSRSBadBot
 {
@@ -66,6 +68,28 @@ namespace OSRSBadBot
                     return false;
                 }
             }
+        }
+
+        //creates list of points containing pixels within tolerance of an object with unique color properties
+        public List<Vector2> ScanBitmapForMatchingColorPixelsList(Bitmap screenshot, Color color, int tolerance)
+        {
+            List<Vector2> result = new List<Vector2>();
+            int toleranceSquared = tolerance * tolerance;
+            int x;
+            int y;
+            for (x = 0; x < screenshot.Width; x++)
+            {
+                for (y = 0; y < screenshot.Height; y++)
+                {
+                    Color pixel = screenshot.GetPixel(x, y);
+                    if(pixel == color)
+                    {
+                        result.Add(new Vector2(x, y));
+                    }
+                }
+            }
+
+            return result;
         }
 
         private string GetTextResult(string text)
